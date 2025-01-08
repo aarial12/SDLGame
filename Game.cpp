@@ -22,18 +22,19 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 		return false;
 	}
 
-	SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/rider.bmp");
+	SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/animate.bmp");
 	if (pTempSurface == 0) {
 		m_bRunning = false;
 		return false;
 	}
 	m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
 	SDL_FreeSurface(pTempSurface);
-	SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
+
+	//Where the image is shown|| The image it self 
 	m_destinationRectangle.x = m_sourceRectangle.x = 0;
 	m_destinationRectangle.y = m_sourceRectangle.y = 0;
-	m_destinationRectangle.w = m_sourceRectangle.w;
-	m_destinationRectangle.h = m_sourceRectangle.h;
+	m_destinationRectangle.w = m_sourceRectangle.w = 128;
+	m_destinationRectangle.h = m_sourceRectangle.h = 82;
 
 	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
 
@@ -51,8 +52,11 @@ void Game::renderer() {
 	SDL_RenderPresent(m_pRenderer);
 }
 
-void Game::handleEvents() {
+void Game::update() {
+	m_sourceRectangle.x = 128 * int( ( (SDL_GetTicks() / 100) % 6));
+}
 
+void Game::handleEvents() {
 	SDL_Event event;
 
 	if (SDL_PollEvent(&event)) { //If there is any event in the event poll
