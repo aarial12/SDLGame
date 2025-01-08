@@ -1,6 +1,7 @@
 #ifndef __Game__
 #define __Game__
 #include"SDL.h"
+#include "TextureManager.h"
 
 class Game {
 
@@ -25,9 +26,7 @@ private:
 
 	bool m_bRunning;
 
-	SDL_Texture* m_pTexture;
-	SDL_Rect m_sourceRectangle;
-	SDL_Rect m_destinationRectangle;
+	int m_currentFrame;
 
 };
 

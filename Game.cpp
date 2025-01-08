@@ -22,21 +22,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 		return false;
 	}
 
-	SDL_Surface* pTempSurface = SDL_LoadBMP("Assets/animate.bmp");
-	if (pTempSurface == 0) {
-		m_bRunning = false;
+	if (!TheTextureManager::Instance()->load("Assets/animate.png", "animate", m_pRenderer))
 		return false;
-	}
-	m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
-	SDL_FreeSurface(pTempSurface);
 
-	//Where the image is shown|| The image it self 
-	m_destinationRectangle.x = m_sourceRectangle.x = 0;
-	m_destinationRectangle.y = m_sourceRectangle.y = 0;
-	m_destinationRectangle.w = m_sourceRectangle.w = 128;
-	m_destinationRectangle.h = m_sourceRectangle.h = 82;
-
-	SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(m_pRenderer, 100, 0, 0, 255);
 
 	std::cout << "Init succes.\n";
 	m_bRunning = true;
@@ -45,18 +34,24 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 }
 
 void Game::renderer() {
-	SDL_RenderClear(m_pRenderer);
 
-	SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+	SDL_RenderClear(m_pRenderer);;
+
+	TheTextureManager::Instance()->draw("animate", 0, 0, 128, 82, m_pRenderer);
+	TheTextureManager::Instance()->drawFrame("animate", 100, 100, 128, 82, 1, m_currentFrame, m_pRenderer);
 
 	SDL_RenderPresent(m_pRenderer);
+
 }
 
 void Game::update() {
-	m_sourceRectangle.x = 128 * int( ( (SDL_GetTicks() / 100) % 6));
+
+	m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
+
 }
 
 void Game::handleEvents() {
+
 	SDL_Event event;
 
 	if (SDL_PollEvent(&event)) { //If there is any event in the event poll
@@ -67,6 +62,7 @@ void Game::handleEvents() {
 }
 
 void Game::clean() {
+
 	SDL_DestroyWindow(m_pWindow);
 	SDL_DestroyRenderer(m_pRenderer);
 	SDL_Quit();
