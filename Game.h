@@ -1,7 +1,10 @@
 #ifndef __Game__
 #define __Game__
 #include"SDL.h"
+#include <iostream>
 #include "TextureManager.h"
+#include "GameObject.h"
+#include "Player.h"
 
 class Game {
 
@@ -19,14 +22,17 @@ public:
 	// a function to acces the private running variable
 	bool running() { return m_bRunning; }
 
+	int m_currentFrame;
+
+	GameObject m_go;
+	Player m_player;
+
 private:
 
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
 
 	bool m_bRunning;
-
-	int m_currentFrame;
 
 };
 

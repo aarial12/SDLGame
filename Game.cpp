@@ -25,6 +25,9 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	if (!TheTextureManager::Instance()->load("Assets/animate.png", "animate", m_pRenderer))
 		return false;
 
+	m_go.load(100, 100, 128, 82, "animate");
+	m_player.load(300, 300, 128, 82, "animate");
+
 	SDL_SetRenderDrawColor(m_pRenderer, 100, 0, 0, 255);
 
 	std::cout << "Init succes.\n";
@@ -37,8 +40,8 @@ void Game::renderer() {
 
 	SDL_RenderClear(m_pRenderer);;
 
-	TheTextureManager::Instance()->draw("animate", 0, 0, 128, 82, m_pRenderer);
-	TheTextureManager::Instance()->drawFrame("animate", 100, 100, 128, 82, 1, m_currentFrame, m_pRenderer);
+	m_go.draw(m_pRenderer);
+	m_player.draw(m_pRenderer);
 
 	SDL_RenderPresent(m_pRenderer);
 
@@ -46,6 +49,8 @@ void Game::renderer() {
 
 void Game::update() {
 
+	m_go.update();
+	m_player.update();
 	m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
 
 }
