@@ -2,6 +2,7 @@
 #define __Game__
 #include"SDL.h"
 #include <iostream>
+#include <vector>
 #include "TextureManager.h"
 #include "GameObject.h"
 #include "Player.h"
@@ -24,8 +25,10 @@ public:
 
 	int m_currentFrame;
 
+	GameObject m_enemy;
 	GameObject m_go;
 	Player m_player;
+	std::vector<GameObject*> m_gameObjects;
 
 private:
 

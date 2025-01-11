@@ -15,6 +15,7 @@ public:
 	void clean();
 
 protected:
+
 	std::string m_textureID;
 
 	int m_currentFrame;
