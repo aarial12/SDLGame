@@ -25,20 +25,16 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	if (!TheTextureManager::Instance()->load("Assets/animate.png", "animate", m_pRenderer))
 		return false;
 
-
-	GameObject* m_player, m_enemy1, m_enemy2, m_enemy3, m_go;
-
-	m_player = new Player();
-	//m_enemy1 = m_enemy3 = m_enemy3 = new Enemy();
 	m_go = new GameObject();
-	m_player->load(100, 100, 128, 82, "animate");
-	m_go.load(300, 300, 128, 82, "animate");
+	m_player = new Player();
+	m_enemy = new Enemy();
 
+	m_go->load(100, 100, 128, 82, "animate");
+	m_player->load(200, 200, 128, 82, "animate");			
+	m_enemy->load(300, 300, 128, 82, "animate");			
 	m_gameObjects.push_back(m_go);
 	m_gameObjects.push_back(m_player);
-	//m_gameObjects.push_back(m_enemy1);
-	//m_gameObjects.push_back(m_enemy2);
-	//m_gameObjects.push_back(m_enemy3);
+	m_gameObjects.push_back(m_enemy);
 
 	SDL_SetRenderDrawColor(m_pRenderer, 100, 0, 0, 255);
 
@@ -66,7 +62,6 @@ void Game::update() {
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
 		m_gameObjects[i]->update();
 	}
-	m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
 
 }
 
@@ -77,7 +72,6 @@ void Game::handleEvents() {
 	if (SDL_PollEvent(&event)) { //If there is any event in the event poll
 		if (event.type == SDL_QUIT)
 			m_bRunning = false;
-
 	}
 }
 

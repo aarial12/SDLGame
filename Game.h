@@ -6,6 +6,7 @@
 #include "TextureManager.h"
 #include "GameObject.h"
 #include "Player.h"
+#include "Enemy.h"
 
 class Game {
 
@@ -25,9 +26,9 @@ public:
 
 	int m_currentFrame;
 
-	GameObject m_enemy;
-	GameObject m_go;
-	Player m_player;
+	GameObject* m_go;
+	GameObject* m_player;
+	GameObject* m_enemy;
 	std::vector<GameObject*> m_gameObjects;
 
 private:

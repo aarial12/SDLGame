@@ -6,12 +6,13 @@
 #include <SDL.h>
 
 
-class GameObject
-{
+class GameObject{
+
 public:
+
 	void load(int x, int y, int width, int height, std::string textureID);
 	void draw(SDL_Renderer* pRenderer);
-	void update();
+	virtual void update();
 	void clean();
 
 protected:
@@ -26,6 +27,7 @@ protected:
 
 	int m_width;
 	int m_height;
+
 };
 
 #endif
