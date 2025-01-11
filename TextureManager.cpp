@@ -34,11 +34,11 @@ void TextureManager::draw(std::string id, int x, int y, int width, int height, S
 
 }
 
-void TextureManager::drawFrame(std::string id, int x, int y, int width, int height, int currentRow, int currentFrame, SDL_Renderer* pRenderer, SDL_RendererFlip flip) {
+void TextureManager::drawFrame(std::string id, int x, int y, int width, int height, int currentRow, SDL_Renderer* pRenderer, SDL_RendererFlip flip) {
 
 	SDL_Rect srcRect, destRect;
 
-	srcRect.x = width * currentFrame;
+	srcRect.x = width * int(((SDL_GetTicks() / 100) % 6));;
 	srcRect.y = height * (currentRow - 1); //Because we will use 1 instead of 0 (Sounds more natural)
 	srcRect.w = destRect.w = width;
 	srcRect.h = destRect.h = height;
