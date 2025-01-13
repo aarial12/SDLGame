@@ -1,6 +1,5 @@
 #pragma once
-#ifndef __LOADERPARAMS__
-#define __LOADERPARAMS__
+#include <iostream>
 
 class LoaderParams {
 
@@ -27,6 +26,4 @@ private:
 	std::string m_textureID;
 
 };
-
-#endif // !__LOADERPARAMS__
 

@@ -1,6 +1,8 @@
 #include<iostream>
 #include "Game.h"
 
+Game* Game::s_pInstance = 0;
+
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, int flags) {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING)) {
@@ -25,18 +27,9 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	if (!TheTextureManager::Instance()->load("Assets/animate.png", "animate", m_pRenderer))
 		return false;
 
-	Game* Game::s_pInstance = 0;
 
-	m_go = new GameObject();
-	m_player = new Player();
-	m_enemy = new Enemy();
-
-	m_go->load(100, 100, 128, 82, "animate");
-	m_player->load(200, 200, 128, 82, "animate");			
-	m_enemy->load(300, 300, 128, 82, "animate");			
-	m_gameObjects.push_back(m_go);
-	m_gameObjects.push_back(m_player);
-	m_gameObjects.push_back(m_enemy);
+	m_gameObjects.push_back(new Player (new LoaderParams(100, 100, 128, 82, "animate")));
+	m_gameObjects.push_back(new Enemy (new LoaderParams(200, 200, 128, 82, "animate")));
 
 	SDL_SetRenderDrawColor(m_pRenderer, 100, 0, 0, 255);
 
@@ -47,15 +40,15 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 }
 
 
-void Game::renderer() {
+void Game::render() {
 
 	SDL_RenderClear(m_pRenderer);;
 
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
-		m_gameObjects[i]->draw(m_pRenderer);
+		m_gameObjects[i]->draw();
 	}
 
-	SDL_RenderPresent(m_pRenderer);
+	SDL_RenderPresent(TheGame::Instance()->getRenderer());
 
 }
 
@@ -82,4 +75,8 @@ void Game::clean() {
 	SDL_DestroyWindow(m_pWindow);
 	SDL_DestroyRenderer(m_pRenderer);
 	SDL_Quit();
+}
+
+bool Game::running() {
+	return m_bRunning;
 }

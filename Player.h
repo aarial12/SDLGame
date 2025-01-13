@@ -2,13 +2,14 @@
 #ifndef __PLAYER__
 #define __PLAYER__
 
-#include "GameObject.h"
+#include "SDLGameObject.h"
 
-class Player : public GameObject {
+class Player : public SDLGameObject {
 
 public:
 
-	void load(int x, int y, int width, int height, std::string textureID);
+	Player(const LoaderParams* pParagrams);
+
 	void draw(SDL_Renderer* p_Renderer);
 	void update();
 	void clear();

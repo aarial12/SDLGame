@@ -3,23 +3,22 @@
 #define __GAMEOBJECT__
 
 #include <iostream>
-#include <SDL.h>
 #include "TextureManager.h"
 #include "LoaderParams.h"
 
 
-class GameObject{
-
+class GameObject
+{
 public:
 
-	virtual void draw() = 0;
-	virtual void update() = 0;
-	virtual void clean() = 0;
+	virtual void draw();
+	virtual void update();
+	virtual void clean();
 
 protected:
-	
-	GameObject(const LoaderParams* pParams){}
-	virtual ~GameObject;
+
+	GameObject(const LoaderParams* pParams) {}
+	virtual ~GameObject() {}
 
 };
 
