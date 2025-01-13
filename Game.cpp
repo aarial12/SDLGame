@@ -25,6 +25,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 	if (!TheTextureManager::Instance()->load("Assets/animate.png", "animate", m_pRenderer))
 		return false;
 
+	Game* Game::s_pInstance = 0;
+
 	m_go = new GameObject();
 	m_player = new Player();
 	m_enemy = new Enemy();

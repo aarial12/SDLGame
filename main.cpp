@@ -1,21 +1,20 @@
 #include"Game.h"
 
-Game* g_game = 0;
 
 int main(int argc, char* args[]) {
 
-	g_game = new Game();
+	if (!TheGame::Instance()->init("Chapter 1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, NULL))
+		return -1;
 
-	g_game->init("Chapter 1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, NULL);
+	while (TheGame::Instance()->running()) {
+		TheGame::Instance()->handleEvents();
+		TheGame::Instance()->update();
+		TheGame::Instance()->render();
 
-	while (g_game->running()) {
-		g_game->update();
-		g_game->handleEvents();
-		g_game->renderer();
-		
 		SDL_Delay(10);
 	}
-	g_game->clean();
+
+	TheGame::Instance()->clean();
 
 	return 0;
 }
