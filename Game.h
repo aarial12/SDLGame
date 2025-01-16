@@ -38,6 +38,9 @@ private:
 
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
+	int w;
+
+	SDL_Rect terrain{ 0, 400, 500, 50 };
 
 	bool m_bRunning;
 	static Game* s_pInstance;

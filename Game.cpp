@@ -42,11 +42,17 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 
 void Game::render() {
 
-	SDL_RenderClear(m_pRenderer);;
+	SDL_RenderClear(m_pRenderer);
+	
 
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
 		m_gameObjects[i]->draw();
 	}
+	SDL_SetRenderDrawColor(TheGame::Instance()->getRenderer(), 100, 200, 0, 255);
+	SDL_RenderDrawRect(TheGame::Instance()->getRenderer(), &terrain);
+	SDL_RenderFillRect(TheGame::Instance()->getRenderer() , &terrain);
+	SDL_SetRenderDrawColor(TheGame::Instance()->getRenderer(), 0, 0, 0, 255);
+	
 
 	SDL_RenderPresent(TheGame::Instance()->getRenderer());
 
@@ -54,6 +60,11 @@ void Game::render() {
 
 void Game::update() {
 
+
+	SDL_GetWindowSize(m_pWindow, &w,
+		NULL);
+
+	terrain.w = w;
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
 		m_gameObjects[i]->update();
 	}
