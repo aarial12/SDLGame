@@ -11,8 +11,25 @@ void Player::draw(SDL_Renderer* pRenderer) {
 
 void Player::update() {
 
-	m_position.setX(m_position.getX() + 1);
+	m_velocity.setX(0);
+	m_velocity.setY(0);
+	
+	handleInput();
+
 	m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
+	
+	SDLGameObject::update();	
+}
+
+void Player::handleInput() {
+
+	if (TheInputHandler::Instance()->getMouseButtonState(LEFT))
+		m_acceleration.setX(1);
+	else if (TheInputHandler::Instance()->getMouseButtonState(RIGHT))
+		m_acceleration.setX(-1);
+	else {
+		m_acceleration.setX(0);
+	}
 
 }
 

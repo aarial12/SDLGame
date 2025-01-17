@@ -43,14 +43,14 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 void Game::render() {
 
 	SDL_RenderClear(m_pRenderer);
-	
+	SDL_SetRenderDrawColor(TheGame::Instance()->getRenderer(), 100, 200, 0, 255);
+	SDL_RenderDrawRect(TheGame::Instance()->getRenderer(), &terrain);
+	SDL_RenderFillRect(TheGame::Instance()->getRenderer() , &terrain);
 
 	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
 		m_gameObjects[i]->draw();
 	}
-	SDL_SetRenderDrawColor(TheGame::Instance()->getRenderer(), 100, 200, 0, 255);
-	SDL_RenderDrawRect(TheGame::Instance()->getRenderer(), &terrain);
-	SDL_RenderFillRect(TheGame::Instance()->getRenderer() , &terrain);
+	
 	SDL_SetRenderDrawColor(TheGame::Instance()->getRenderer(), 0, 0, 0, 255);
 	
 
@@ -73,12 +73,8 @@ void Game::update() {
 
 void Game::handleEvents() {
 
-	SDL_Event event;
+	TheInputHandler::Instance()->update();
 
-	if (SDL_PollEvent(&event)) { //If there is any event in the event poll
-		if (event.type == SDL_QUIT)
-			m_bRunning = false;
-	}
 }
 
 void Game::clean() {

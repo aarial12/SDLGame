@@ -18,6 +18,7 @@ public:
 	void update();
 	void handleEvents();
 	void clean();
+	void quit() { m_bRunning = 0; }
 	bool running();
 
 	std::vector<GameObject*> m_gameObjects;
@@ -33,6 +34,8 @@ public:
 	}
 
 	SDL_Renderer* getRenderer() const { return m_pRenderer; }
+
+	SDL_Event event;
 
 private:
 
