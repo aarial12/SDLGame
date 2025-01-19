@@ -13,23 +13,17 @@ void Player::update() {
 
 	m_velocity.setX(0);
 	m_velocity.setY(0);
+	m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
 	
 	handleInput();
-
-	m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
 	
 	SDLGameObject::update();	
 }
 
 void Player::handleInput() {
 
-	if (TheInputHandler::Instance()->getMouseButtonState(LEFT))
-		m_acceleration.setX(1);
-	else if (TheInputHandler::Instance()->getMouseButtonState(RIGHT))
-		m_acceleration.setX(-1);
-	else {
-		m_acceleration.setX(0);
-	}
+	Vector2D* vec = TheInputHandler::Instance()->getMousePosition();
+	m_velocity = (*vec - m_position) / 100;
 
 }
 

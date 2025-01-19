@@ -3,6 +3,7 @@
 #define __INPUTHANDLER__	
 
 #include <vector>
+#include "Vector2D.h"
 
 enum mouse_buttons {
 	LEFT = 0,
@@ -25,6 +26,7 @@ public:
 	void update();
 	void clean();
 	bool getMouseButtonState(int buttonNumber);
+	Vector2D* getMousePosition();
 
 private:
 
@@ -35,6 +37,7 @@ private:
 
 	std::vector<bool> m_mouseButtonStates;
 
+	Vector2D* m_mousePosition;
 
 };
 typedef InputHandler TheInputHandler;

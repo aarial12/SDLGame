@@ -2,10 +2,13 @@
 #include "Game.h"
 
 InputHandler* InputHandler::s_pInstance = 0;
+Vector2D* m_mousePosition = 0;
 
 InputHandler::InputHandler() {
 	for (int i = 0; i < 3; i++)
 		m_mouseButtonStates.push_back(false);
+
+	m_mousePosition = new Vector2D(0, 0);
 }
 
 void InputHandler::update() {
@@ -36,12 +39,21 @@ void InputHandler::update() {
 				m_mouseButtonStates[RIGHT] = false;
 		}
 
+		if (event.type == SDL_MOUSEMOTION) {
+			m_mousePosition->setX(event.motion.x);
+			m_mousePosition->setY(event.motion.y);
+		}
+
 	}
 	
 }
 
 bool InputHandler::getMouseButtonState(int buttonNumber) {
 	return m_mouseButtonStates[buttonNumber];
+}
+
+Vector2D* InputHandler::getMousePosition() {
+	return m_mousePosition;
 }
 
 InputHandler::~InputHandler(){}
