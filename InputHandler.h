@@ -4,6 +4,7 @@
 
 #include <vector>
 #include "Vector2D.h"
+#include "sdl.h"
 
 enum mouse_buttons {
 	LEFT = 0,
@@ -26,9 +27,18 @@ public:
 	void update();
 	void clean();
 	bool getMouseButtonState(int buttonNumber);
+	bool isKeyDown(SDL_Scancode key);
 	Vector2D* getMousePosition();
+	const Uint8* m_keystate;
 
 private:
+
+	void onKeyDown();
+	void onkeyUp();
+
+	void onMouseMove(SDL_Event& event);
+	void onMouseButtonDown(SDL_Event& event);
+	void onMouseButtonUp(SDL_Event& event);
 
 	InputHandler();
 	~InputHandler();
@@ -38,7 +48,7 @@ private:
 	std::vector<bool> m_mouseButtonStates;
 
 	Vector2D* m_mousePosition;
-
+	
 };
 typedef InputHandler TheInputHandler;
 
