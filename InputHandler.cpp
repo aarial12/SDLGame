@@ -81,6 +81,9 @@ bool InputHandler::isKeyDown(SDL_Scancode key) {
 		if (m_keystate[key] == 1)
 			return true;
 		else
+		{
+
+		}
 			return false;
 	}
 

@@ -3,6 +3,7 @@
 
 Game* Game::s_pInstance = 0;
 
+
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, int flags) {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING)) {
@@ -24,16 +25,11 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 		return false;
 	}
 
-	if (!TheTextureManager::Instance()->load("Assets/animate.png", "animate", m_pRenderer))
-		return false;
+	m_pGameStateMachine = new GameStateMachine();
+	m_pGameStateMachine->changeState(new MenuState());
 
+	SDL_SetRenderDrawColor(m_pRenderer, 0, 50, 50, 255);
 
-	m_gameObjects.push_back(new Player (new LoaderParams(100, 100, 128, 82, "animate")));
-	m_gameObjects.push_back(new Enemy (new LoaderParams(200, 200, 128, 82, "animate")));
-
-	SDL_SetRenderDrawColor(m_pRenderer, 100, 0, 0, 255);
-
-	std::cout << "Init succes.\n";
 	m_bRunning = true;
 
 	return true;
@@ -43,37 +39,24 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 void Game::render() {
 
 	SDL_RenderClear(m_pRenderer);
-	SDL_SetRenderDrawColor(TheGame::Instance()->getRenderer(), 100, 200, 0, 255);
-	SDL_RenderDrawRect(TheGame::Instance()->getRenderer(), &terrain);
-	SDL_RenderFillRect(TheGame::Instance()->getRenderer() , &terrain);
-
-	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
-		m_gameObjects[i]->draw();
-	}
 	
-	SDL_SetRenderDrawColor(TheGame::Instance()->getRenderer(), 0, 0, 0, 255);
-	
+	m_pGameStateMachine->render();
 
-	SDL_RenderPresent(TheGame::Instance()->getRenderer());
+	SDL_RenderPresent(m_pRenderer);
 
-}
+}	
 
 void Game::update() {
-
-
-	SDL_GetWindowSize(m_pWindow, &w,
-		NULL);
-
-	terrain.w = w;
-	for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
-		m_gameObjects[i]->update();
-	}
-
+	m_pGameStateMachine->update();
 }
 
 void Game::handleEvents() {
 
 	TheInputHandler::Instance()->update();
+
+	if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN)) {
+		m_pGameStateMachine->changeState(new PlayState());
+	}
 
 }
 

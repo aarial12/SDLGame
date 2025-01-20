@@ -4,7 +4,7 @@ TextureManager* TextureManager::s_pInstance = 0;
 
 bool TextureManager::load(std::string fileName, std::string id, SDL_Renderer* pRenderer) {
 
-	SDL_Surface* pTempSurface = IMG_Load("Assets/animate.png");
+	SDL_Surface* pTempSurface = IMG_Load(fileName.c_str());
 
 	if (pTempSurface == 0) 
 		return false;
@@ -47,4 +47,8 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int heig
 
 	SDL_RenderCopyEx(pRenderer, m_textureMap[id], &srcRect, &destRect, 0, 0, flip);
 
+}
+
+void TextureManager::clearFromTextureMap(std::string id) {
+	m_textureMap.erase(id);
 }

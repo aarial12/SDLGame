@@ -8,6 +8,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "GameStateMachine.h"
 
 class Game
 {
@@ -39,6 +40,7 @@ public:
 
 private:
 
+	GameStateMachine* m_pGameStateMachine;
 	SDL_Window* m_pWindow;
 	SDL_Renderer* m_pRenderer;
 	int w;
