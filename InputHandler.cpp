@@ -3,7 +3,7 @@
 
 InputHandler* InputHandler::s_pInstance = 0;
 Vector2D* m_mousePosition = 0;
-const Uint8* m_keystates = SDL_GetKeyboardState(0);
+const Uint8* m_keystate = SDL_GetKeyboardState(0);
 
 InputHandler::InputHandler() {
 	for (int i = 0; i < 3; i++)
@@ -37,6 +37,9 @@ void InputHandler::update() {
 		case	SDL_KEYDOWN:
 			onKeyDown();
 			break;
+
+		case	SDL_SCANCODE_ESCAPE:
+
 
 		default:
 			break;
@@ -100,6 +103,11 @@ bool InputHandler::getMouseButtonState(int buttonNumber) {
 
 Vector2D* InputHandler::getMousePosition() {
 	return m_mousePosition;
+}
+
+void InputHandler::reset() {
+	for (int i = 0; i < 3; i++)
+		m_mouseButtonStates.push_back(false);
 }
 
 InputHandler::~InputHandler(){}

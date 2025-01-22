@@ -1,5 +1,6 @@
 #include "MenuState.h"
 #include "MenuButton.h"
+#include "PlayState.h"
 #include "Game.h"
 
 const std::string MenuState::s_menuID = "MENU";
@@ -24,8 +25,8 @@ bool MenuState::onEnter() {
 	if (!TheTextureManager::Instance()->load("Assets/exit.png", "exitButton", TheGame::Instance()->getRenderer())) 
 		return false;
 
-	SDLGameObject* button1 = new MenuButton(new LoaderParams(100, 100, 400, 100, "playButton"));
-	SDLGameObject* button2 = new MenuButton(new LoaderParams(100, 300, 400, 100, "exitButton"));
+	GameObject* button1 = new MenuButton(new LoaderParams(100, 100, 400, 100, "playButton"), s_menuToPlay);
+	GameObject* button2 = new MenuButton(new LoaderParams(100, 300, 400, 100, "exitButton"), s_exitFromMenu);
 
 	m_gameObjects.push_back(button1);
 	m_gameObjects.push_back(button2);
@@ -48,4 +49,12 @@ bool MenuState::onExit() {
 
 std::string MenuState::getStateID() const{
 	return s_menuID;
+}
+
+void MenuState::s_menuToPlay() {
+	TheGame::Instance()->getStateMachine()->changeState(new PlayState);
+}
+
+void MenuState::s_exitFromMenu() {
+	TheGame::Instance()->quit();
 }

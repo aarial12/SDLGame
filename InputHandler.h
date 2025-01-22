@@ -28,6 +28,8 @@ public:
 	void clean();
 	bool getMouseButtonState(int buttonNumber);
 	bool isKeyDown(SDL_Scancode key);
+	void reset();
+
 	Vector2D* getMousePosition();
 	const Uint8* m_keystate;
 

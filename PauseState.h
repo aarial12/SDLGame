@@ -3,9 +3,9 @@
 #include <vector>
 #include "GameObject.h"
 
-class PlayState : public GameState {
-
-public:
+class PauseState : public GameState
+{
+public: 
 
 	virtual void update();
 	virtual void render();
@@ -17,8 +17,10 @@ public:
 
 private:
 
-	static const std::string s_playID;
+	static const std::string s_pauseID;
+	std::vector<GameObject*> m_gameObjects;
 
-	std::vector <GameObject*> m_gameObjects;
-
+	static void s_pauseToMain();
+	static void s_resumePlay();
 };
+

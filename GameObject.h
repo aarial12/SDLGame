@@ -5,6 +5,7 @@
 #include <iostream>
 #include "TextureManager.h"
 #include "LoaderParams.h"
+#include "InputHandler.h"
 
 
 class GameObject

@@ -1,5 +1,8 @@
 #include<iostream>
 #include "Game.h"
+#include "InputHandler.h"
+#include "MenuState.h"
+#include "PlayState.h"
 
 Game* Game::s_pInstance = 0;
 
@@ -69,4 +72,8 @@ void Game::clean() {
 
 bool Game::running() {
 	return m_bRunning;
+}
+
+GameStateMachine* Game::getStateMachine() { 
+	return m_pGameStateMachine; 
 }

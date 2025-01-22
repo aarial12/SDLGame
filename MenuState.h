@@ -1,7 +1,7 @@
 #pragma once
 #include "GameState.h"
-#include "SDLGameObject.h"
 #include <vector>
+#include "GameObject.h"
 
 class MenuState : public GameState {
 	
@@ -17,7 +17,10 @@ public:
 private:
 
 	static const std::string s_menuID;
-	std::vector<SDLGameObject*> m_gameObjects;
+	std::vector<GameObject*> m_gameObjects;
+	
+	static void s_menuToPlay();
+	static void s_exitFromMenu();
 
 };
 

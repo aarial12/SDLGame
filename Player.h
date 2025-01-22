@@ -3,7 +3,6 @@
 #define __PLAYER__
 
 #include "SDLGameObject.h"
-#include "InputHandler.h"
 
 class Player : public SDLGameObject {
 
