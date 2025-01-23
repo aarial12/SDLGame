@@ -30,7 +30,7 @@ void GameOverState::render() {
 bool GameOverState::onEnter() {
 
 	if (!TheTextureManager::Instance()->load("Assets/gameover.png", "gameover", TheGame::Instance()->getRenderer()))
-
+		return false;
 
 	if (!TheTextureManager::Instance()->load("Assets/resume.png", "resume", TheGame::Instance()->getRenderer()))
 		return false;
@@ -38,7 +38,7 @@ bool GameOverState::onEnter() {
 	if (!TheTextureManager::Instance()->load("Assets/main.png", "main", TheGame::Instance()->getRenderer()))
 		return false;
 
-	GameObject* gameOverText = new AnimatedGraphic(new LoaderParams(200, 100, 190, 30, "gameover"), 2);
+	GameObject* gameOverText = new AnimatedGraphic(new LoaderParams(200, 100, 190, 30, "gameover"), 1);
 	GameObject* resumeButton = new MenuButton(new LoaderParams(200, 200, 200, 80, "resume"), s_restartPlay);
 	GameObject* mainButton = new MenuButton(new LoaderParams(200, 300, 200, 80, "main"), s_gameOverToMain);
 
@@ -48,6 +48,17 @@ bool GameOverState::onEnter() {
 
 	return true;
 
+}
+
+bool GameOverState::onExit() {
+	for (int i = 0; i < m_gameObjects.size(); i++) {
+		m_gameObjects[i]->clean();
+	}
+	m_gameObjects.clear();
+	TheTextureManager::Instance()->clearFromTextureMap("player");
+
+	SDL_Delay(100);
+	return true;
 }
 
 std::string GameOverState::getStateID() const{
