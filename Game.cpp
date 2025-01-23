@@ -74,6 +74,10 @@ bool Game::running() {
 	return m_bRunning;
 }
 
+SDL_Renderer* Game::getRenderer() const {
+	return m_pRenderer;
+}
+
 GameStateMachine* Game::getStateMachine() { 
 	return m_pGameStateMachine; 
 }

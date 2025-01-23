@@ -30,7 +30,7 @@ public:
         return s_pInstance;
     }
 
-    SDL_Renderer* getRenderer() const { return m_pRenderer; }
+    SDL_Renderer* getRenderer() const;
     SDL_Event event;
 
 private:

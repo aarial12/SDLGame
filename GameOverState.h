@@ -1,9 +1,10 @@
 #pragma once
 #include "GameState.h"
+#include "GameObject.h"
 #include <vector>
-#include "SDLGameObject.h"
 
-class PlayState : public GameState {
+class GameOverState : public GameState
+{
 
 public:
 
@@ -13,14 +14,15 @@ public:
 	virtual bool onEnter();
 	virtual bool onExit();
 
-	bool checkCollision(SDLGameObject* pi, SDLGameObject* p2);
-
 	virtual std::string getStateID() const;
 
 private:
 
-	static const std::string s_playID;
+	static void s_gameOverToMain();
+	static void s_restartPlay();
 
-	std::vector <GameObject*> m_gameObjects;
+	static const std::string s_gameOverID;
 
+	std::vector<GameObject*> m_gameObjects;
 };
+

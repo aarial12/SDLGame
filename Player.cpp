@@ -28,6 +28,6 @@ void Player::handleInput() {
 	m_velocity /= 50;
 }
 
-void Player::clear() {
+void Player::clean() {
 
 }

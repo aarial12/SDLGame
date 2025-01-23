@@ -13,7 +13,7 @@ public:
 	void draw(SDL_Renderer* p_Renderer);
 	void handleInput();
 	void update();
-	void clear();
+	void clean();
 
 };
 
